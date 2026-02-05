@@ -1,20 +1,32 @@
-import os
 import asyncio
-from aiogram import Bot, Dispatcher
+import os
+from fastapi import FastAPI, Request
+from aiogram import Bot, Dispatcher, types
 from aiogram.types import Update
-from aiogram.webhook.aiohttp_server import TokenBasedRequestHandler
-from bot_instance import get_dispatcher
 
-BOT_TOKEN = os.getenv("BOT_TOKEN")
-bot = Bot(token=BOT_TOKEN)
-dp = get_dispatcher()
+# Инициализация
+TOKEN = os.getenv("BOT_TOKEN")
+bot = Bot(token=TOKEN)
+dp = Dispatcher()
+app = FastAPI()
 
-async def handler(request):
-    if request.method == "POST":
-        update = Update.model_validate(await request.json(), context={"bot": bot})
+# Хендлер на команду /start
+@dp.message(lambda message: message.text == "/start")
+async def start_handler(message: types.Message):
+    await message.answer("Теперь я тебя слышу! Бот на Vercel готов к работе. 🚀")
+
+# Обработка POST-запросов от Telegram (на корень "/")
+@app.post("/")
+async def feed_update(request: Request):
+    try:
+        json_str = await request.json()
+        update = Update.model_validate(json_str, context={"bot": bot})
         await dp.feed_update(bot, update)
-        return {"statusCode": 200, "body": "ok"}
-    return {"statusCode": 200, "body": "Only POST allowed"}
+    except Exception as e:
+        print(f"Error: {e}")
+    return {"ok": True}
 
-async def main(request):
-    return await handler(request)
+# Просто для проверки в браузере
+@app.get("/")
+async def index():
+    return {"status": "Bot is running. Send a POST request from Telegram!"}
