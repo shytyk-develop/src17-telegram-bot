@@ -1,5 +1,5 @@
 import os
-from google import genai
+import google.generativeai as genai
 from aiogram import Bot, Dispatcher, types, Router
 from aiogram.filters import CommandStart
 
