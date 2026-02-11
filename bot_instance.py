@@ -12,8 +12,8 @@ router = Router()
 def main_keyboard() -> InlineKeyboardMarkup:
     """Main menu with logical navigation"""
     return InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text="⭐️ My Watchlist", callback_data="menu_watchlist")],
-        [InlineKeyboardButton(text="🔍 Search Asset", callback_data="menu_search")],
+        [InlineKeyboardButton(text="⭐️ Watchlist", callback_data="menu_watchlist"),
+        InlineKeyboardButton(text="🔍 Search Asset", callback_data="menu_search")],
     ])
 
 
