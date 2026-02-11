@@ -24,4 +24,4 @@ async def feed_update(request: Request):
 
 @app.get("/")
 async def index():
-    return {"status": "Bot is running with AI Chef logic!"}
+    return {"status": "Bot is running with Stock Ticker logic!"}
