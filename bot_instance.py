@@ -284,8 +284,8 @@ async def help_menu(c: CallbackQuery) -> None:
     await c.message.edit_text(
         text,
         reply_markup=InlineKeyboardMarkup(inline_keyboard=[
-            [InlineKeyboardButton(text="� GitHub", url="https://github.com/shytyk-develop")],
-            [InlineKeyboardButton(text="�🔙 Back", callback_data="back_to_main")]
+            [InlineKeyboardButton(text="GitHub", url="https://github.com/shytyk-develop")],
+            [InlineKeyboardButton(text="🔙 Back", callback_data="back_to_main")]
         ]),
         parse_mode="Markdown"
     )
