@@ -1,4 +1,4 @@
-# 📈 Stock & Crypto Price Tracker Bot
+# SRC-17 Telegram Bot
 
 ![Telegram](https://img.shields.io/badge/Platform-Telegram-0088cc?style=flat-square) ![Python](https://img.shields.io/badge/Python-3.9%2B-3776ab?style=flat-square) ![FastAPI](https://img.shields.io/badge/Framework-FastAPI-009688?style=flat-square) ![SQLAlchemy](https://img.shields.io/badge/ORM-SQLAlchemy-red?style=flat-square) ![License](https://img.shields.io/badge/License-All%20Rights%20Reserved-black?style=flat-square)
 
