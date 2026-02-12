@@ -136,8 +136,8 @@ async def help_command(m: types.Message) -> None:
     await m.answer(
         text,
         reply_markup=InlineKeyboardMarkup(inline_keyboard=[
-            [InlineKeyboardButton(text="GitHub", url="https://github.com/shytyk-develop")],
-            [InlineKeyboardButton(text="🔙 Back", callback_data="back_to_main")]
+            [InlineKeyboardButton(text="🔙 Back", callback_data="back_to_main"),
+            InlineKeyboardButton(text="GitHub", url="https://github.com/shytyk-develop")]
         ]),
         parse_mode="Markdown"
     )
@@ -291,9 +291,8 @@ async def search_ticker(m: types.Message) -> None:
 
 # ========== HELP ==========
 
-@router.callback_query(F.data == "menu_help")
+""" @router.callback_query(F.data == "menu_help")
 async def help_menu(c: CallbackQuery) -> None:
-    """Show help menu"""
     text = (
         "ℹ️ **How to use this bot**\n\n"
         "**⭐️ My Watchlist**\n"
@@ -319,7 +318,7 @@ async def help_menu(c: CallbackQuery) -> None:
         ]),
         parse_mode="Markdown"
     )
-    await c.answer()
+    await c.answer() """
 
 # ---------- Dispatcher ----------
 
