@@ -106,7 +106,7 @@ async def start(m: types.Message) -> None:
     await m.answer(
         "📈 **Stock & Crypto Price Tracker**\n\n"
         "Track your favorite assets and get real-time prices.\n"
-        "Need help? --> /help.\n\n"
+        "Use /help for help.\n\n"
         "**Choose an option:**",
         reply_markup=main_keyboard(), 
         parse_mode="Markdown"
@@ -150,8 +150,9 @@ async def back_to_main(c: CallbackQuery) -> None:
     """Return to main menu"""
     await c.message.edit_text(
         "📈 **Stock & Crypto Price Tracker**\n\n"
-        "Track your favorite assets and get real-time prices.\n\n"
-        "👇 **Choose an option:**",
+        "Track your favorite assets and get real-time prices.\n"
+        "Need help again?: /help.\n\n"
+        "**Choose an option:**",
         reply_markup=main_keyboard(),
         parse_mode="Markdown"
     )
