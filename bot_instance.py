@@ -211,13 +211,15 @@ async def back_to_main(c: CallbackQuery) -> None:
 @router.callback_query(F.data == "menu_watchlist")
 async def show_watchlist(c: CallbackQuery) -> None:
     """Show user's watchlist with prices"""
-    favs = await get_user_favorites(c.from_user.id)
+    user_id = c.from_user.id
+    favs = await get_user_favorites(user_id)
     
     if not favs:
+        kb = await watchlist_keyboard(False, user_id)
         await c.message.edit_text(
             "📭 Your watchlist is empty\n\n"
             "Use Search Asset to find and add stocks, currencies, or crypto.",
-            reply_markup=watchlist_keyboard(False),
+            reply_markup=kb,
             parse_mode="Markdown"
         )
         await c.answer()
@@ -226,16 +228,17 @@ async def show_watchlist(c: CallbackQuery) -> None:
     await c.message.edit_text("⏳ Loading prices...", parse_mode="Markdown")
     prices = await asyncio.gather(*[asyncio.to_thread(fetch_price, t) for t in favs])
     
-    text = "⭐️ **Your Watchlist**\n\n"
+    text = "⭐️ Your Watchlist\n\n"
     for ticker, (price, currency) in zip(favs, prices):
         if price:
-            text += f"🔹 **{ticker}** → `{price} {currency}`\n"
+            text += f"🔹 {ticker} → `{price} {currency}`\n"
         else:
-            text += f"🔹 **{ticker}** → ❌ Error\n"
+            text += f"🔹 {ticker} → ❌ Error\n"
     
+    kb = await watchlist_keyboard(True, user_id)
     await c.message.edit_text(
         text,
-        reply_markup=watchlist_keyboard(True),
+        reply_markup=kb,
         parse_mode="Markdown"
     )
     await c.answer()
